@@ -1,0 +1,53 @@
+{
+  "name": "vue-text-styler",
+  "version": "1.0.0",
+  "description": "A Vue 3 text input component, that let's you style text with Regex and UnoCSS in real time",
+  "packageManager": "pnpm@8.5.1",
+  "author": "Rettend",
+  "license": "MIT",
+  "homepage": "https://github.com/Rettend/vue-text-styler#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rettend/vue-text-styler.git"
+  },
+  "keywords": [
+    "vue component",
+    "color input",
+    "text input",
+    "unocss"
+  ],
+  "sideEffects": true,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "unbuild",
+    "stub": "unbuild --stub",
+    "test": "vitest",
+    "lint": "eslint .",
+    "lint:fix": "pnpm run lint --fix",
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp && pnpm publish"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.38.6",
+    "@types/node": "^20.1.4",
+    "bumpp": "^9.1.0",
+    "eslint": "^8.40.0",
+    "typescript": "^5.0.4",
+    "unbuild": "^1.2.1"
+  }
+}

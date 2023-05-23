@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "@antfu"
+  ],
+  "rules": {
+    "no-shadow": "error",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+  }
+}
