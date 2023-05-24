@@ -1,6 +1,6 @@
 {
   "name": "vue-text-styler",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Vue 3 text input component, that let's you style text with Regex and UnoCSS in real time",
   "packageManager": "pnpm@8.5.1",
   "author": "Rettend",
@@ -10,6 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Rettend/vue-text-styler.git"
   },
+  "bugs": "https://github.com/Rettend/vue-text-styler/issues",
   "keywords": [
     "vue component",
     "color input",
@@ -20,11 +21,11 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
+      "require": "./dist/index.js",
       "import": "./dist/index.mjs"
     }
   },
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
@@ -32,6 +33,7 @@
   ],
   "scripts": {
     "build": "unbuild",
+    "dev": "vite serve playground",
     "stub": "unbuild --stub",
     "test": "vitest",
     "lint": "eslint .",
@@ -39,15 +41,18 @@
     "typecheck": "tsc --noEmit",
     "release": "bumpp && pnpm publish"
   },
-  "peerDependencies": {
+  "dependencies": {
     "vue": "^3.3.4"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.6",
     "@types/node": "^20.1.4",
+    "@vitejs/plugin-vue": "^4.2.3",
     "bumpp": "^9.1.0",
     "eslint": "^8.40.0",
     "typescript": "^5.0.4",
-    "unbuild": "^1.2.1"
+    "unbuild": "^1.2.1",
+    "unocss": "^0.52.3",
+    "vite": "^4.3.8"
   }
 }
