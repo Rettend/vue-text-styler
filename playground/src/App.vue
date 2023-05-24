@@ -16,8 +16,8 @@ const tracked = ref<string[]>([])
     <h1>TextStyler Playground</h1>
     <TextStyler
       v-model:text="text"
-      :special="special"
       line="single"
+      :special="special"
       :track="['text2', 'text1']"
       p-3 bg-gray-100 rounded-xl
       @tracked="tracked = $event"
