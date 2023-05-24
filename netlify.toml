@@ -1,0 +1,4 @@
+[build]
+base = "/playground/"
+publish = "dist"
+command = "vite build"
