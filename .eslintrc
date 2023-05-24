@@ -4,6 +4,7 @@
   ],
   "rules": {
     "no-shadow": "error",
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-console": "warn"
   }
 }
