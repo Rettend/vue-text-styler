@@ -13,6 +13,7 @@
   "bugs": "https://github.com/Rettend/vue-text-styler/issues",
   "keywords": [
     "vue component",
+    "style input",
     "color input",
     "text input",
     "unocss"
