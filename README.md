@@ -20,7 +20,8 @@ pnpm i vue-text-styler
 // main.ts
 import TextStyler from 'vue-text-styler'
 
-app.use(TextStyler)
+// for global registration
+app.component(TextStyler)
 ```
 
 ## 🧰 Props
