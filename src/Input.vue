@@ -3,13 +3,15 @@ import { computed, h, onMounted, ref, useAttrs, watch } from 'vue'
 import DOMPurify from 'isomorphic-dompurify'
 import { useChildWithCursor, useCursorPosition } from './composables'
 
-const props = withDefaults(defineProps<{
+export interface Props {
   text: string
-  line?: 'single' | 'multiple'
   special: Record<string, string | string[]>
+  line?: 'single' | 'multiple'
   track?: string | string[]
   readonly?: boolean
-}>(), {
+}
+
+const props = withDefaults(defineProps<Props>(), {
   line: 'multiple',
 })
 

@@ -1,10 +1,5 @@
-import type { Plugin } from 'vue'
 import Input from './Input.vue'
+import type { Props } from './Input.vue'
 
-const install: Plugin = {
-  install(app) {
-    app.component('TextStyler', Input)
-  },
-}
-
-export default install
+export default Input
+export type { Props as TextStylerProps }
