@@ -42,10 +42,12 @@
     "release": "bumpp && pnpm publish"
   },
   "dependencies": {
+    "isomorphic-dompurify": "^1.5.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.6",
+    "@types/dompurify": "^3.0.2",
     "@types/node": "^20.1.4",
     "@vitejs/plugin-vue": "^4.2.3",
     "bumpp": "^9.1.0",

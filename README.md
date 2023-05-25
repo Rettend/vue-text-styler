@@ -59,4 +59,3 @@ const special = {
 }) -->
 
 ## Props
-

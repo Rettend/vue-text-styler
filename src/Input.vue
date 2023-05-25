@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, h, onMounted, ref, useAttrs, watch } from 'vue'
+import DOMPurify from 'isomorphic-dompurify'
 import { useChildWithCursor, useCursorPosition } from './composables'
 
 const props = withDefaults(defineProps<{
@@ -18,14 +19,14 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
-
 const input = ref<HTMLDivElement | null>(null)
+const TEXT = computed(() => DOMPurify.sanitize(props.text))
 
 function styleSpecialValues() {
   const keys = Object.values(props.special).flat().sort((a, b) => b.length - a.length)
   const escapedKeys = keys.map(key => key.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'))
   const regex = new RegExp(escapedKeys.join('|'), 'g')
-  const matches = props.text.match(regex)
+  const matches = TEXT.value.match(regex)
 
   if (matches) {
     const tracked = matches.filter(match => props.track?.includes(match))
@@ -36,7 +37,7 @@ function styleSpecialValues() {
     emit('tracked', [])
   }
 
-  return props.text.replace(regex, (match) => {
+  return TEXT.value.replace(regex, (match) => {
     const key = Object.keys(props.special).find((k) => {
       const values = props.special[k]
       if (typeof values === 'string')
@@ -56,7 +57,7 @@ onMounted(() => {
   el.innerHTML = styleSpecialValues()
 })
 
-watch(() => props.text, () => {
+watch(() => TEXT.value, () => {
   if (!input.value)
     return
 
@@ -72,7 +73,7 @@ watch(() => props.text, () => {
     absoluteCursorPosition,
   )
 
-  if (props.text && textNode)
+  if (TEXT.value && textNode)
     setCursorPosition(textNode, relativeCursorPosition)
 })
 
@@ -102,7 +103,7 @@ function focus() {
   if (textNode && textNode.nodeType === 1)
     textNode = textNode.lastChild
 
-  if (props.text && textNode)
+  if (TEXT.value && textNode)
     setCursorPosition(textNode, textNode.textContent?.length ?? 0)
   else if (input.value.lastChild)
     setCursorPosition(input.value.lastChild, input.value.lastChild.textContent?.length ?? 0)
