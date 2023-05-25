@@ -1,6 +1,6 @@
 {
   "name": "vue-text-styler",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A Vue 3 text input component, that let's you style text with Regex and UnoCSS in real time",
   "packageManager": "pnpm@8.5.1",
   "author": "Rettend",
