@@ -47,9 +47,11 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.6",
+    "@iconify-json/ph": "^1.1.5",
     "@types/dompurify": "^3.0.2",
     "@types/node": "^20.1.4",
     "@vitejs/plugin-vue": "^4.2.3",
+    "@vueuse/core": "^10.1.2",
     "bumpp": "^9.1.0",
     "eslint": "^8.40.0",
     "typescript": "^5.0.4",

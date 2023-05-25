@@ -10,7 +10,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      'vue-text-styler': path.relative(__dirname, '../src'),
+      'vue-text-styler': path.resolve(__dirname, '../src'),
     },
   },
 })
