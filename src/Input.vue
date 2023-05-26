@@ -5,7 +5,7 @@ import { useChildWithCursor, useCursorPosition } from './composables'
 
 export interface Props {
   text: string
-  special: Record<string, string | string[]>
+  special: Record<string, string | string[] | RegExp | RegExp[]>
   line?: 'single' | 'multiple'
   track?: string | string[]
   readonly?: boolean
@@ -24,10 +24,30 @@ const attrs = useAttrs()
 const input = ref<HTMLDivElement | null>(null)
 const TEXT = computed(() => DOMPurify.sanitize(props.text))
 
+function isStringRecord(value: typeof props.special): value is Record<string, string | string[]> {
+  return Object.values(value).every(v => typeof v === 'string' || Array.isArray(v))
+}
+
+function isRegexRecord(value: typeof props.special): value is Record<string, RegExp | RegExp[]> {
+  return Object.values(value).every(v => v instanceof RegExp || Array.isArray(v))
+}
+
 function styleSpecialValues() {
-  const keys = Object.values(props.special).flat().sort((a, b) => b.length - a.length)
-  const escapedKeys = keys.map(key => key.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'))
-  const regex = new RegExp(escapedKeys.join('|'), 'g')
+  let regex: RegExp | undefined
+
+  if (isStringRecord(props.special)) {
+    const keys = Object.values(props.special).flat().sort((a, b) => b.length - a.length)
+    const escapedKeys = keys.map(key => key.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'))
+    regex = new RegExp(escapedKeys.join('|'), 'g')
+  }
+  else if (isRegexRecord(props.special)) {
+    const regexes = Object.values(props.special).flat().map(v => new RegExp(v.source))
+    regex = new RegExp(regexes.map(r => r.source).join('|'), 'g')
+  }
+
+  if (!regex)
+    return TEXT.value
+
   const matches = TEXT.value.match(regex)
 
   if (matches) {
@@ -42,10 +62,23 @@ function styleSpecialValues() {
   return TEXT.value.replace(regex, (match) => {
     const key = Object.keys(props.special).find((k) => {
       const values = props.special[k]
-      if (typeof values === 'string')
+      if (typeof values === 'string') {
         return values === match
-      else
-        return values.includes(match)
+      }
+      else if (values instanceof RegExp) {
+        return values.test(match)
+      }
+      else if (Array.isArray(values)) {
+        return values.some((v) => {
+          if (typeof v === 'string')
+            return v === match
+          else if (v instanceof RegExp)
+            return v.test(match)
+          else
+            return false
+        })
+      }
+      else { return false }
     })
     if (key)
       return `<span class="${key}">${match}</span>`

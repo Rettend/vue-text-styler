@@ -44,10 +44,9 @@ const examples = reactive<Example[]>([
   },
   {
     info: 'Single line',
-    text: 'text1 and text2 are here',
+    text: 'text1 and text2',
     special: {
-      'text-red-6 dark:text-yellow-5 font-bold': ['text1', 'text2'],
-      'underline': 'here',
+      'text-red-6 dark:text-red-5 font-bold': ['text1', 'text2'],
     },
     line: 'single',
   },
@@ -60,6 +59,14 @@ const examples = reactive<Example[]>([
     },
     track: ['text1', 'text2'],
     tracked: [],
+  },
+  {
+    info: 'Custom Regex',
+    text: 'text1 and text2 are here and text3 is there',
+    special: {
+      'text-red-6 dark:text-yellow-5 font-bold': /text[0-9]/,
+      'underline': [/(?:t)?here/, /and/],
+    },
   },
   {
     info: 'Dynamic special keys (only works with already generated css 😑)',
@@ -100,7 +107,20 @@ function exampleView(example: Example) {
   }
 
   const props = Object.fromEntries(Object.entries(example).filter(([key]) => !(key in helper)))
-  return JSON.stringify(props, null, 2)
+
+  // display regex as string (otherwise it will be displayed as empty object)
+  const regexProps = Object.fromEntries(Object.entries(props).map(([key, value]) => {
+    if (typeof value === 'object' && key === 'special') {
+      const special = Object.fromEntries(Object.entries(value).map(([k, v]) => {
+        if (typeof v === 'object')
+          return [k, v?.toString()]
+        return [k, v]
+      }))
+      return [key, special]
+    }
+    return [key, value]
+  }))
+  return JSON.stringify(regexProps, null, 2)
 }
 
 function handleEnter(e: KeyboardEvent, index: number) {
@@ -120,21 +140,16 @@ function handleEnter(e: KeyboardEvent, index: number) {
         </div>
       </div>
       <div
-        w-10 h-10 cursor-pointer mt-6 text-red-6 dark:text-red-5 :class="isDark ? 'i-shadow:ph-moon-bold md:mr-2' : 'i-shadow:ph-sun-bold'"
-        @click="toggleDark()"
+        w-10 h-10 cursor-pointer mt-6 text-red-6 dark:text-red-5
+        :class="isDark ? 'i-shadow:ph-moon-bold md:mr-2' : 'i-shadow:ph-sun-bold'" @click="toggleDark()"
       />
     </div>
     <div v-for="(example, index) in examples" :key="index" flex="~ col md:row" gap-2>
       <div flex-1 bg-gray-1 dark:bg-dark-4 rounded-xl p-3 w="auto md:1" justify-between>
         <h2>{{ index + 1 }}. {{ example.info }}</h2>
         <TextStyler
-          v-model:text="example.text"
-          :special="example.special"
-          :track="example.track"
-          :line="example.line"
-          :readonly="example.readonly"
-          p-3 bg-gray-2 dark:bg-dark-3 rounded-xl
-          @tracked="example.tracked = $event"
+          v-model:text="example.text" :special="example.special" :track="example.track" :line="example.line"
+          :readonly="example.readonly" p-3 bg-gray-2 dark:bg-dark-3 rounded-xl @tracked="example.tracked = $event"
           @keydown.enter="handleEnter($event, index)"
         />
         <p>
