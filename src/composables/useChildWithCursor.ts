@@ -6,13 +6,12 @@ export function useChildWithCursor(node: Node, cursorPosition: number) {
   node.childNodes.forEach((child: Node) => {
     if (child.textContent) {
       // start adding the length of the text nodes until the cursor position is reached
-      if (child.textContent && nodeEndPosition < cursorPosition)
-        nodeEndPosition += child.textContent.length
-
-      // if the cursor position is reached, set the child node
-      if (nodeEndPosition >= cursorPosition && !childNode) {
+      if (nodeEndPosition + child.textContent.length >= cursorPosition && !childNode) {
         childNode = child
-        relativeCursorPosition = cursorPosition - (nodeEndPosition - child.textContent.length)
+        relativeCursorPosition = cursorPosition - nodeEndPosition
+      }
+      else {
+        nodeEndPosition += child.textContent.length
       }
     }
   })
