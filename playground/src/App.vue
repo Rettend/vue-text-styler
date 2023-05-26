@@ -115,12 +115,12 @@ function handleEnter(e: KeyboardEvent, index: number) {
       <div>
         <h1>TextStyler Playground</h1>
         <div flex="~ row" gap-2 items-center>
-          <div i-ph-info-bold w-6 h-6 text-blue-6 />
+          <div i-shadow:ph-info-bold w-8 h-8 text-blue-6 />
           Change the inputs' values and the styling will be updated.
         </div>
       </div>
       <div
-        w-8 h-8 cursor-pointer mt-6 text-red-6 dark:text-red-5 :class="isDark ? 'i-ph-moon-bold' : 'i-ph-sun-bold'"
+        w-10 h-10 cursor-pointer mt-6 text-red-6 dark:text-red-5 :class="isDark ? 'i-shadow:ph-moon-bold md:mr-2' : 'i-shadow:ph-sun-bold'"
         @click="toggleDark()"
       />
     </div>

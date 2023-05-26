@@ -15,6 +15,9 @@ devDependencies:
   '@iconify-json/ph':
     specifier: ^1.1.5
     version: 1.1.5
+  '@iconify/utils':
+    specifier: ^2.1.5
+    version: 2.1.5
   '@types/dompurify':
     specifier: ^3.0.2
     version: 3.0.2
@@ -33,6 +36,9 @@ devDependencies:
   eslint:
     specifier: ^8.40.0
     version: 8.40.0
+  icon-shadow:
+    specifier: ^1.0.5
+    version: 1.0.5(@unocss/core@0.51.13)(@unocss/preset-icons@0.51.13)
   typescript:
     specifier: ^5.0.4
     version: 5.0.4
@@ -1022,6 +1028,10 @@ packages:
       unconfig: 0.3.9
     dev: true
 
+  /@unocss/core@0.51.13:
+    resolution: {integrity: sha512-SclWkqY2c+p5+PiqrbQkhJNEExPdeo71/aGFye10tpBkgPJWd5xC7dhg5F8M4VPNBtuNCrvBWyqNnunMyuz/WQ==}
+    dev: true
+
   /@unocss/core@0.52.3:
     resolution: {integrity: sha512-AdpksuSj1+jAjF7Ek1Ubtt+pE/bi4EmVqz/sx7PTgp9RUyBX1457kDlSWJPFOvEEkKL8VLtwXB46hD2oPAp36Q==}
     dev: true
@@ -1057,6 +1067,16 @@ packages:
     resolution: {integrity: sha512-2+1i1iMnTv+Mh+KHmNm7kDtAfTD/rJn134PjIgTJq06WmS62RF9lDsj7ng0NA09vXLHQKtwXGeRk7Ca3P7/Jwg==}
     dependencies:
       '@unocss/core': 0.52.3
+    dev: true
+
+  /@unocss/preset-icons@0.51.13:
+    resolution: {integrity: sha512-iL9s1NUVeWe3WSh5LHn7vy+veCAag9AFA50IfNlHuAARhuI8JtrMQA8dOXrWrzM0zWBMB+BVIkVaMVrF257n+Q==}
+    dependencies:
+      '@iconify/utils': 2.1.5
+      '@unocss/core': 0.51.13
+      ofetch: 1.0.1
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@unocss/preset-icons@0.52.3:
@@ -2699,6 +2719,16 @@ packages:
   /human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+    dev: true
+
+  /icon-shadow@1.0.5(@unocss/core@0.51.13)(@unocss/preset-icons@0.51.13):
+    resolution: {integrity: sha512-MVFVBJG2X2hHrIafR1tv1nZ7MQBOqrKwgl7X+IdQvj5raJr2pwb7zC92kIex30yFtTharf33XcBM7gTyYjEaNQ==}
+    peerDependencies:
+      '@unocss/core': ^0.51.12
+      '@unocss/preset-icons': 0.51.13
+    dependencies:
+      '@unocss/core': 0.51.13
+      '@unocss/preset-icons': 0.51.13
     dev: true
 
   /iconv-lite@0.6.3:
