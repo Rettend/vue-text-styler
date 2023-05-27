@@ -135,21 +135,26 @@ function handleEnter(e: KeyboardEvent, index: number) {
       <div>
         <h1>TextStyler Playground</h1>
         <div flex="~ row" gap-2 items-center>
-          <div i-shadow:ph-info-bold w-8 h-8 text-blue-6 />
+          <div i-ph-info-bold w-6 h-6 text-blue-6 />
           Change the inputs' values and the styling will be updated.
         </div>
       </div>
       <div
-        w-10 h-10 cursor-pointer mt-6 text-red-6 dark:text-red-5
-        :class="isDark ? 'i-shadow:ph-moon-bold md:mr-2' : 'i-shadow:ph-sun-bold'" @click="toggleDark()"
+        w-8 h-8 cursor-pointer mt-6 text-red-6 dark:text-red-5
+        :class="isDark ? 'i-ph-moon-bold' : 'i-ph-sun-bold'" @click="toggleDark()"
       />
     </div>
     <div v-for="(example, index) in examples" :key="index" flex="~ col md:row" gap-2>
       <div flex-1 bg-gray-1 dark:bg-dark-4 rounded-xl p-3 w="auto md:1" justify-between>
         <h2>{{ index + 1 }}. {{ example.info }}</h2>
         <TextStyler
-          v-model:text="example.text" :special="example.special" :track="example.track" :line="example.line"
-          :readonly="example.readonly" p-3 bg-gray-2 dark:bg-dark-3 rounded-xl @tracked="example.tracked = $event"
+          v-model:text="example.text"
+          :special="example.special"
+          :track="example.track"
+          :line="example.line"
+          :readonly="example.readonly"
+          p-3 bg-gray-2 dark:bg-dark-3 rounded-xl
+          @tracked="example.tracked = $event"
           @keydown.enter="handleEnter($event, index)"
         />
         <p>

@@ -40,7 +40,7 @@
     "lint": "eslint .",
     "lint:fix": "pnpm run lint --fix",
     "typecheck": "tsc --noEmit",
-    "release": "bumpp && pnpm publish"
+    "release": "unbuild && bumpp && pnpm publish"
   },
   "dependencies": {
     "isomorphic-dompurify": "^1.5.0",
@@ -49,14 +49,12 @@
   "devDependencies": {
     "@antfu/eslint-config": "^0.38.6",
     "@iconify-json/ph": "^1.1.5",
-    "@iconify/utils": "^2.1.5",
     "@types/dompurify": "^3.0.2",
     "@types/node": "^20.1.4",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vueuse/core": "^10.1.2",
     "bumpp": "^9.1.0",
     "eslint": "^8.40.0",
-    "icon-shadow": "^1.0.5",
     "typescript": "^5.0.4",
     "unbuild": "^1.2.1",
     "unocss": "^0.52.3",

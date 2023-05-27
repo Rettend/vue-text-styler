@@ -1,5 +1,7 @@
 # vue-text-styler
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/15c71247-48b5-4bc5-afd4-2057bf183d43/deploy-status)](https://app.netlify.com/sites/vue-text-styler/deploys)
+
 [Demo](https://vue-text-styler.netlify.app/)
 
 ## 📦 Install

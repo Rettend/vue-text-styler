@@ -5,7 +5,6 @@
 .dark::-webkit-scrollbar {
   background-color: #202324;
   color: #aba499;
-  width: 10px;
 }
 
 .dark::-webkit-scrollbar-corner {
