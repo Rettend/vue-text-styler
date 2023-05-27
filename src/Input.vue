@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, onMounted, ref, useAttrs, watch } from 'vue'
 import DOMPurify from 'isomorphic-dompurify'
-import { useChildWithCursor, useCursorPosition } from './composables'
+import { useChildWithCursor, useCursorPosition, useRecord } from './composables'
 
 export interface Props {
   text: string
@@ -21,26 +21,19 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
+const record = useRecord()
 const input = ref<HTMLDivElement | null>(null)
 const TEXT = computed(() => DOMPurify.sanitize(props.text))
-
-function isStringRecord(value: typeof props.special): value is Record<string, string | string[]> {
-  return Object.values(value).every(v => typeof v === 'string' || Array.isArray(v))
-}
-
-function isRegexRecord(value: typeof props.special): value is Record<string, RegExp | RegExp[]> {
-  return Object.values(value).every(v => v instanceof RegExp || Array.isArray(v))
-}
 
 function styleSpecialValues() {
   let regex: RegExp | undefined
 
-  if (isStringRecord(props.special)) {
+  if (record.isString(props.special)) {
     const keys = Object.values(props.special).flat().sort((a, b) => b.length - a.length)
     const escapedKeys = keys.map(key => key.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'))
     regex = new RegExp(escapedKeys.join('|'), 'g')
   }
-  else if (isRegexRecord(props.special)) {
+  else if (record.isRegExp(props.special)) {
     const regexes = Object.values(props.special).flat().map(v => new RegExp(v.source))
     regex = new RegExp(regexes.map(r => r.source).join('|'), 'g')
   }
