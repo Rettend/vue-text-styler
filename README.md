@@ -161,6 +161,11 @@ const special = computed(() => {
 
 > **Note**: find more examples in the demo playground
 
+# ⚠️ Limitations
+
+- **Don't use in Nuclear reactor code**, as it uses `innerHTML` with user-provided content, see more: [Vue Security](https://vuejs.org/guide/best-practices/security.html). It *might* be the case that despite Vue escaping js, and we using html sanitization, it is still vulnerable to attacks. I tried most of [these](https://cheatsheetseries.owasp.org/cheatsheets/XSS_Filter_Evasion_Cheat_Sheet.html#google-feeling-lucky-part-1) and they didn't work though, so idk.
+- **Korean keyboard is broken.** The component uses `innerHTML` on every character so this breaks the Korean input completely. I also tested the Chinese input and that's sometimes a little weird too, so other keyboard layouts may have issues as well.
+
 ## License
 
 MIT
