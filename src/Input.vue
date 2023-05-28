@@ -11,6 +11,10 @@ export interface Props {
   readonly?: boolean
 }
 
+export interface Expose {
+  focus(): void
+}
+
 const props = withDefaults(defineProps<Props>(), {
   line: 'multiple',
 })
@@ -137,7 +141,9 @@ function focus() {
     setCursorPosition(input.value.lastChild, input.value.lastChild.textContent?.length ?? 0)
 }
 
-defineExpose({ focus })
+defineExpose<Expose>({
+  focus,
+})
 
 // remove style from attrs to prevent accidental override (vue does not merge them)
 const attributes = computed(() => {

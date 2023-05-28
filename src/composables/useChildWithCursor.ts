@@ -3,6 +3,9 @@ export function useChildWithCursor(node: Node, cursorPosition: number) {
   let relativeCursorPosition = 0
   let childNode: Node | null = null
 
+  if (!node)
+    return { textNode: null, relativeCursorPosition: 0 }
+
   node.childNodes.forEach((child: Node) => {
     if (child.textContent) {
       // start adding the length of the text nodes until the cursor position is reached
